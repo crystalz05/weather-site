@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <div>
+                <h2 class="title">WEATHER CHECK</h2>
+            </div>
+            <div class="form">
+                <form action="/" method="get">
+                    <input id="cit" type="text" name="city" placeholder="City">
+                    <button type="submit" name="submit">CHECK</button> <br>
+                    <div class="des">
+                        <div class="cityName">
+                            <div class="weatherImage">
+                                <img class="img11" id="weather-image" name="img1" src="./Untitled.jpg">
+                            </div>
+                            <div>
+                                <h2 id="namee">City Name</h2>
+                            </div>
+                        </div>
+                        <div class="center">
+                        </div>
+                        <div class="weatherDes">
+                            <h2 id="temp">Temp</h2>
+                            <p id="des">Description</p>
+                        </div>
+                    </div>
+                </form>        
+            </div>    
+        </div>    
+    </div>
+
+    <script>
+// Add an ID to the image element in your HTML code:
+// <img id="weather-image" name="img1" src="./Untitled.jpg">
+
+    document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
+
+    const city = document.querySelector("input[name=city]").value;
+    const url = `/${encodeURIComponent(city)}`;
+
+    fetch(url)
+        .then(function (response) {
+        return response.json();
+        })
+        .then(function (data) {
+        const imageUrl = data.image;
+        const temperaturee = data.temperature;
+        const descriptionn = data.description;
+        const place = data.place;
+        document.getElementById("weather-image").src = imageUrl;
+        document.querySelector("#temp").textContent = temperaturee;
+        document.querySelector("#des").textContent = descriptionn;
+        document.querySelector("#namee").textContent = place;
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
+    });
+
+    </script>
+</body>
+</html>
